@@ -16,6 +16,11 @@ public class Employee {
 
     public Employee() {}
 
+    public Employee(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Employee(
         @JsonProperty("firstName") String firstName,
         @JsonProperty("lastName") String lastName,

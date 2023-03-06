@@ -33,5 +33,8 @@ public class EmployeeService {
         return employeeDaoImpl.delete(id);
     }
 
+    public int checkForEmployee(int id) {
+        return employeeDaoImpl.checkForEmployee(id);
+    }
 
 }

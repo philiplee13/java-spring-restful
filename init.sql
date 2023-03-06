@@ -1,3 +1,4 @@
+/** for docker container **/
 CREATE TABLE IF NOT EXISTS employees 
 (
     employee_id SERIAL PRIMARY KEY,

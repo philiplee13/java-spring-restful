@@ -5,14 +5,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import restapidemo.restapi.domain.Employee;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
-
-    private static ArrayList<Employee> DB = new ArrayList<>();
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -34,12 +31,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 """;
         Employee employee = jdbcTemplate.queryForObject(
             sql,
-            new Object[]{id}, (resultSet, index) -> {
+            (resultSet, index) -> {
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 int employeeId = resultSet.getInt("employee_id");
                 return new Employee(firstName, lastName, employeeId);
-            });
+            }, new Object[]{id});
         return Optional.ofNullable(employee);
     }
 
@@ -50,6 +47,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 WHERE employee_id = ?;
                 """;
         return jdbcTemplate.update(sql, id);
+    }
+
+    @Override
+    public int checkForEmployee(int id) {
+        String sql = """
+                SELECT count(*) FROM employees
+                WHERE employee_id = ?
+                """;
+        return jdbcTemplate.queryForObject(sql, Integer.class, new Object[]{id});
     }
 
     @Override

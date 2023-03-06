@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import restapidemo.restapi.domain.Employee;
 import restapidemo.restapi.service.EmployeeService;
 import java.util.List;
-import java.util.Optional;
 
 
 
@@ -45,6 +44,11 @@ public class EmployeeEndpoint {
     @DeleteMapping(path="{id}")
     public int deleteEmployee(@PathVariable int id) {
         return employeeService.deleteEmployee(id);
+    }
+
+    @GetMapping(path="verify/{id}")
+    public int checkForEmployee(@PathVariable int id) {
+        return employeeService.checkForEmployee(id);
     }
 
 }
